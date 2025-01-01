@@ -13,11 +13,10 @@ export type User = {
 export type Appointments = {
   id: string;
   coach_id: string;
-  student_id?: string;
+  student_id: string;
   start_time: string;
-  notes?: string;
-  rating?: number;
-  status?: 'pending' | 'booked';
+  notes: string;
+  rating: number;
 };
 
 /*
