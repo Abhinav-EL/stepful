@@ -22,12 +22,16 @@ const appointments = [
     id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
     coach_id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa',
     start_time: '2025/01/01 09:00:00 PM',
+    notes: null,
+    rating: null,
   },
   {
     id: '76d65c26-f784-44a2-ac19-586678f7c2f2',
     coach_id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa',
     student_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
     start_time: '2025/02/01 09:00',
+    notes: null,
+    rating: null,
   },
   {
     id: '13D07535-C59E-4157-A011-F8D2EF4E0CBB',
