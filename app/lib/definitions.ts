@@ -6,9 +6,21 @@ export type User = {
   id: string;
   name: string;
   email: string;
-  password: string;
+  phone: string;
+  type: 'coach' | 'student';
 };
 
+export type Appointments = {
+  id: string;
+  coach_id: string;
+  student_id?: string;
+  start_time: string;
+  notes?: string;
+  rating?: number;
+  status?: 'pending' | 'booked';
+};
+
+/*
 export type Customer = {
   id: string;
   name: string;
@@ -86,3 +98,4 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+*/
