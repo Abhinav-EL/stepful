@@ -3,7 +3,6 @@ import {
   Appointments,
   User,
 } from './definitions';
-import { formatCurrency } from './utils';
 
 export async function fetchUsers() {
   try {
