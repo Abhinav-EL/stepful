@@ -1,14 +1,69 @@
 import { sql } from '@vercel/postgres';
 import {
-  CustomerField,
-  CustomersTableType,
-  InvoiceForm,
-  InvoicesTable,
-  LatestInvoiceRaw,
-  Revenue,
+  Appointments,
+  User,
 } from './definitions';
 import { formatCurrency } from './utils';
 
+export async function fetchUsers() {
+  try {
+    const data = await sql<User>`SELECT * FROM users`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch users.');
+  }
+}
+
+export async function fetchAppointments() {
+  try {
+    const data = await sql<Appointments>`SELECT * FROM appointments`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch appointments.');
+  }
+}
+
+export async function fetchAppointmentsByCoachId(coachId: string) {
+  try {
+    const data = await sql<Appointments>`
+      SELECT * FROM appointments WHERE coach_id = ${coachId}`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch appointments by coach ID.');
+  }
+}
+
+export async function fetchAppointmentsByStudentId(studentId: string) {
+  try {
+    const data = await sql<Appointments>`
+      SELECT * FROM appointments WHERE student_id = ${studentId}`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch appointments by student ID.');
+  }
+}
+
+export async function fetchAppointmentById(id: string) {
+  try {
+    const data = await sql<Appointments>`
+      SELECT * FROM appointments WHERE id = ${id}`;
+
+    return data.rows[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch appointment by ID.');
+  }
+}
+
+/*
 export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
@@ -215,3 +270,4 @@ export async function fetchFilteredCustomers(query: string) {
     throw new Error('Failed to fetch customer table.');
   }
 }
+*/
