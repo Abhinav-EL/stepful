@@ -45,7 +45,7 @@
       appointments.map(async (appointment) => {
         return client.sql`
           INSERT INTO appointments (id, coach_id, student_id, start_time, notes, rating, status)
-          VALUES (${appointment.id}, ${appointment.coach_id}, ${appointment.student_id}, ${appointment.start_time}, ${appointment.notes}, ${appointment.rating})
+          VALUES (${appointment.id}, ${appointment.coach_id}, ${appointment.student_id}, ${appointment.start_time}, ${appointment.notes || ''}, ${appointment.rating || ''})
           ON CONFLICT (id) DO NOTHING;
         `;
       }),
@@ -55,10 +55,7 @@
   }
 
 export async function GET() {
-  return Response.json({
-    message:
-      'Uncomment this file and remove this line. You can delete this file when you are finished.',
-  });
+  
     try {
       await client.sql`BEGIN`;
       await seedUsers();

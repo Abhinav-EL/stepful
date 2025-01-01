@@ -21,13 +21,21 @@ const appointments = [
   {
     id: '1',
     coach_id: 'abc',
-    start_time: '2025/01/01 09:00',
+    start_time: '2025/01/01 09:00:00 PM',
   },
   {
     id: '2',
     coach_id: 'abc',
     student_id: 'def',
     start_time: '2025/02/01 09:00',
+  },
+  {
+    id: '2',
+    coach_id: 'abc',
+    student_id: 'def',
+    start_time: '2025/01/01 09:00:00 AM',
+    notes: 'Went well, no follow up',
+    rating: 5,
   },
 ];
 
