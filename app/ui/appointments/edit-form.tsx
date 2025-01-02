@@ -28,7 +28,7 @@ export default function Form({ id, }: {id: string }) {
             name="rating"
             min="0" max="5"
             step="1"
-            className="w-full rounded-md border-gray-300"
+            className="w-full rounded-md border-gray-100"
           />
         </div>
         {/* Notes*/}
@@ -37,7 +37,7 @@ export default function Form({ id, }: {id: string }) {
           <input
             type="text"
             name="notes"
-            className="w-full rounded-md border-gray-300"
+            className="w-full rounded-md border-gray-100"
           />
         </div>
       </div>

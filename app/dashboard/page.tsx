@@ -6,7 +6,8 @@ import StudentAppointments from '../ui/dashboard/studentappointments';
  
 export default async function Page() {
     const users = await fetchUsers();
-    const curentUser = users[0];
+    // Change User Here -- 0 is for Coach Mark, 1 is for Student Steven
+    const curentUser = users[1];
     if (!curentUser) {
         return <p>No user found</p>;
     }
@@ -32,7 +33,7 @@ export default async function Page() {
         { <Card title="Upcoming" value={upcomingAppointments.length} type="upcoming" /> }
         { <Card title="Completed" value={totalAppointments.length - upcomingAppointments.length} type="completed" />}
       </div>
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+      <div>
         {isUserStudent
             ? <StudentAppointments appointments={totalAppointments} currentUser={curentUser}/>
             : <Appointments appointments={totalAppointments} currentUser={curentUser} />

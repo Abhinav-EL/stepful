@@ -5,7 +5,7 @@ export default async function StudentAppointments({appointments, currentUser, }:
 {
     return (
         <div>
-            <h1>Appointments for {currentUser.name}</h1>
+            <h1>Appointments for- {currentUser.name}</h1>
             <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>

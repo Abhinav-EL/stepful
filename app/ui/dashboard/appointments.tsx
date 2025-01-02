@@ -10,19 +10,19 @@ export default async function Appointments({appointments, currentUser, }: {appoi
     }
     return (
         <div>
-            <h1>Appointments for {currentUser.name}</h1>
-            <div><AddAppointment id={currentUser.id}/> </div>
+            <h1>Appointments for- {currentUser.name}</h1>
+            <AddAppointment id={currentUser.id}/>
             <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Name
+                  Student Name
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Email
+                  Student Email
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Phone
+                  Student Phone
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Time

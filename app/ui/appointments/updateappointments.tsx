@@ -1,4 +1,4 @@
-import { PencilIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, PlusIcon, BookmarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { bookAppointment } from '@/app/lib/data';
 
@@ -9,7 +9,7 @@ export function BookAppointment({ appointment_id, student_id }: { appointment_id
       <form action={bookAppointmentWithAptId}>
         <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
           <span className="sr-only">Book</span>
-          <PencilIcon className="w-4" />
+          <BookmarkIcon className="w-4" />
         </button>
       </form>
     );
@@ -18,12 +18,14 @@ export function BookAppointment({ appointment_id, student_id }: { appointment_id
 
   export function AddAppointment({ id, }: {id: String }) {
     return (
-      <Link
-        href={`/dashboard/${id}/create`}
-        className="rounded-md border p-2 hover:bg-gray-100"
-      >
-        <PlusIcon className="w-5" />
-      </Link>
+     <div>
+        <span className='no-wrap'>Add Apointment </span>
+        <span><Link href={`/dashboard/${id}/create`}>
+                <PlusIcon className="w-5" />
+            </Link>
+        </span>
+            
+      </div>
     );
   }
 
@@ -31,7 +33,6 @@ export function BookAppointment({ appointment_id, student_id }: { appointment_id
     return (
       <Link
         href={`/dashboard/${id}/edit`}
-        className="rounded-md border p-2 hover:bg-gray-100"
       >
         <PencilIcon className="w-5" />
       </Link>
