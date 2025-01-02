@@ -10,7 +10,7 @@ export type User = {
   type: 'coach' | 'student';
 };
 
-export type Appointments = {
+export type Appointment = {
   id: string;
   coach_id: string;
   student_id: string;
@@ -18,6 +18,8 @@ export type Appointments = {
   notes: string;
   rating: number;
 };
+
+export type AppointmentWithUser = Appointment & { user: User };
 
 /*
 export type Customer = {

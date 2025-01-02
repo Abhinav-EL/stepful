@@ -1,7 +1,8 @@
 import { sql } from '@vercel/postgres';
 import {
-  Appointments,
+  Appointment,
   User,
+  AppointmentWithUser,
 } from './definitions';
 
 export async function fetchUsers() {
@@ -17,7 +18,7 @@ export async function fetchUsers() {
 
 export async function fetchAppointments() {
   try {
-    const data = await sql<Appointments>`SELECT * FROM appointments`;
+    const data = await sql<Appointment>`SELECT * FROM appointments`;
 
     return data.rows;
   } catch (error) {
@@ -26,41 +27,58 @@ export async function fetchAppointments() {
   }
 }
 
-export async function fetchAppointmentsByCoachId(coachId: string) {
+export async function fetchAppointmentsByUser(user: User) {
   try {
-    const data = await sql<Appointments>`
-      SELECT * FROM appointments WHERE coach_id = ${coachId}`;
+    const data = await sql<Appointment>`
+      SELECT * FROM appointments WHERE coach_id = ${user.id} OR student_id = ${user.id}`;
 
-    return data.rows;
+      const appointments = data.rows.map((appointment) => ({
+        ...appointment,
+        start_time: new Date(appointment.start_time).toLocaleString(),
+      }));
+    return appointments;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch appointments by coach ID.');
+    throw new Error('Failed to fetch appointments by user.');
   }
 }
 
-export async function fetchAppointmentsByStudentId(studentId: string) {
+export async function fetchUpcomingAppointmentsByUser(user: User) {
   try {
-    const data = await sql<Appointments>`
-      SELECT * FROM appointments WHERE student_id = ${studentId}`;
-
-    return data.rows;
+    const data = await sql<Appointment>`
+      SELECT * FROM appointments WHERE (coach_id = ${user.id} OR student_id = ${user.id}) 
+      AND start_time > NOW() ORDER BY start_time ASC`;
+      
+      const appointments = data.rows.map((appointment) => ({
+        ...appointment,
+        start_time: new Date(appointment.start_time).toLocaleString(),
+      }));
+    return appointments;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch appointments by student ID.');
+    throw new Error('Failed to fetch upcoming appointments.');
   }
 }
 
-export async function fetchAppointmentById(id: string) {
+export async function fetchHydratedAppointmentsByUser(user : User) {
   try {
-    const data = await sql<Appointments>`
-      SELECT * FROM appointments WHERE id = ${id}`;
+    const data = await sql<AppointmentWithUser>`
+      SELECT appointments.*, users.name, users.email, users.phone
+      FROM appointments
+      LEFT JOIN users ON users.id = appointments.student_id
+      WHERE appointments.coach_id = ${user.id}`;
 
-    return data.rows[0];
+      const appointments = data.rows.map((appointment) => ({
+        ...appointment,
+        start_time: new Date(appointment.start_time).toLocaleString(),
+      }));
+    return appointments;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch appointment by ID.');
+    throw new Error('Failed to fetch upcoming appointments.');
   }
 }
+
 
 /*
 export async function fetchRevenue() {
