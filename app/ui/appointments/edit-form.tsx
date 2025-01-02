@@ -1,15 +1,14 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { createAppointment } from '@/app/lib/actions';
+import { editAppointment } from '@/app/lib/data';
 
 export default function Form({ id, }: {id: string }) {
-  console.log("Current User Id: ",  id);
+  console.log("Appointment Id to Edit: ",  id);
   
   async function submitHandler(formData: FormData){
     "use server";
-    formData.append('coach_id', id)  
     console.log(formData)
-    const serverResponse = await createAppointment(formData)
+    const serverResponse = await editAppointment(id, formData.get('rating') as string, formData.get('notes') as string)
     console.log(serverResponse)
   }
 
@@ -18,15 +17,26 @@ export default function Form({ id, }: {id: string }) {
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label className="mb-2 block text-sm font-medium">
-            Please enter appointment time below
+            Please enter details for this appointment below
           </label>
         </div>
-        {/* Start Time*/}
+        {/* Rating*/}
         <div className="mb-4">
-          <label className="mb-2 block text-sm font-medium">Start Time</label>
+          <label className="mb-2 block text-sm font-medium">Rating 1 - 5</label>
           <input
-            type="datetime-local"
-            name="start_time"
+            type="range"
+            name="rating"
+            min="0" max="5"
+            step="1"
+            className="w-full rounded-md border-gray-300"
+          />
+        </div>
+        {/* Notes*/}
+        <div className="mb-4">
+          <label className="mb-2 block text-sm font-medium">Notes</label>
+          <input
+            type="text"
+            name="notes"
             className="w-full rounded-md border-gray-300"
           />
         </div>
@@ -38,7 +48,7 @@ export default function Form({ id, }: {id: string }) {
         >
           Cancel
         </Link>
-        <Button type="submit">Create Appointment</Button>
+        <Button type="submit">Edit Appointment</Button>
       </div>
     </form>
   );

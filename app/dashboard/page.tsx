@@ -1,7 +1,8 @@
 import { Card } from '@/app/ui/dashboard/cards';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchUsers, fetchHydratedAppointmentsByUser, fetchUpcomingAppointmentsByUser } from '../lib/data';
+import { fetchUsers, fetchHydratedAppointmentsForCoach, fetchUpcomingAppointmentsByUser, fetchHydratedAppointmentsForStudent } from '../lib/data';
 import Appointments from '@/app/ui/dashboard/appointments';
+import StudentAppointments from '../ui/dashboard/studentappointments';
  
 export default async function Page() {
     const users = await fetchUsers();
@@ -10,14 +11,21 @@ export default async function Page() {
         return <p>No user found</p>;
     }
 
-    const totalAppointments = await fetchHydratedAppointmentsByUser(curentUser);
+    const isUserStudent = curentUser.type === 'student';
+    var totalAppointments;
     const upcomingAppointments = await fetchUpcomingAppointmentsByUser(curentUser);
+
+    if(isUserStudent) {
+        totalAppointments = await fetchHydratedAppointmentsForStudent(curentUser);
+    } else {
+        totalAppointments = await fetchHydratedAppointmentsForCoach(curentUser);
+    }
     console.log(totalAppointments);
 
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard
+        Appointments
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         { <Card title="Total" value={totalAppointments.length} type="total" /> }
@@ -25,7 +33,10 @@ export default async function Page() {
         { <Card title="Completed" value={totalAppointments.length - upcomingAppointments.length} type="completed" />}
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        { <Appointments appointments={totalAppointments} currentUser={curentUser}  />}
+        {isUserStudent
+            ? <StudentAppointments appointments={totalAppointments} currentUser={curentUser}/>
+            : <Appointments appointments={totalAppointments} currentUser={curentUser} />
+        }
       </div>
     </main>
   );

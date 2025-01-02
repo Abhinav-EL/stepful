@@ -1,40 +1,28 @@
 import { AppointmentWithUser, User } from '@/app/lib/definitions';
-import { AddAppointment, EditAppointment } from '../appointments/updateappointments';
+import { BookAppointment } from '../appointments/updateappointments';
 
-export default async function Appointments({appointments, currentUser, }: {appointments: AppointmentWithUser[]; currentUser: User; })
+export default async function StudentAppointments({appointments, currentUser, }: {appointments: AppointmentWithUser[]; currentUser: User; })
 {
-    function isAppointmentInPast(appointment: AppointmentWithUser) {
-        const currentTimeStamp = new Date();
-        const appointmentTimeStamp = new Date(appointment.start_time);
-        return appointmentTimeStamp < currentTimeStamp && appointment.student_id != null;
-    }
     return (
         <div>
             <h1>Appointments for {currentUser.name}</h1>
-            <div><AddAppointment id={currentUser.id}/> </div>
             <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Name
+                  Coach Name
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Email
+                    Coach Email
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Phone
+                    Coach Phone
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Time
+                  Apointment Time
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Notes
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Rating
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Edit Appointment
+                  Click To Book
                 </th>
               </tr>
             </thead>
@@ -59,17 +47,11 @@ export default async function Appointments({appointments, currentUser, }: {appoi
                     {appointment.start_time}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {appointment.notes}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {appointment.rating}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
                     {
-                        isAppointmentInPast(appointment) &&  
-                        <EditAppointment id={appointment.id}/>
+                        appointment.student_id === null &&  
+                        <BookAppointment appointment_id={appointment.id} student_id = {currentUser.id}/>
                     }
-                </td>
+                  </td>
                 </tr>
               ))}
             </tbody>

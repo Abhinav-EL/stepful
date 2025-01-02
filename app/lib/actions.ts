@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function createAppointment(formData: FormData) {
+    "use server";
     const rawFormData = {
         start_time: formData.get('start_time'),
         coach_id: formData.get('coach_id'),

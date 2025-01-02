@@ -1,15 +1,17 @@
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, PlusIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { User } from '@/app/lib/definitions';
+import { bookAppointment } from '@/app/lib/data';
 
-export function UpdateAppointment({ id }: { id: string }) {
+export function BookAppointment({ appointment_id, student_id }: { appointment_id: string, student_id: string }) {
+    const bookAppointmentWithAptId = bookAppointment.bind(null, appointment_id, student_id);
+ 
     return (
-      <Link
-        href="/dashboard"
-        className="rounded-md border p-2 hover:bg-gray-100"
-      >
-        <PencilIcon className="w-5" />
-      </Link>
+      <form action={bookAppointmentWithAptId}>
+        <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
+          <span className="sr-only">Book</span>
+          <PencilIcon className="w-4" />
+        </button>
+      </form>
     );
   }
 
@@ -21,6 +23,17 @@ export function UpdateAppointment({ id }: { id: string }) {
         className="rounded-md border p-2 hover:bg-gray-100"
       >
         <PlusIcon className="w-5" />
+      </Link>
+    );
+  }
+
+  export function EditAppointment({ id, }: {id: String }) {
+    return (
+      <Link
+        href={`/dashboard/${id}/edit`}
+        className="rounded-md border p-2 hover:bg-gray-100"
+      >
+        <PencilIcon className="w-5" />
       </Link>
     );
   }
