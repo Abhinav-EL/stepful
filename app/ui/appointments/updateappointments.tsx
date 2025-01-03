@@ -19,12 +19,10 @@ export function BookAppointment({ appointment_id, student_id }: { appointment_id
   export function AddAppointment({ id, }: {id: String }) {
     return (
      <div>
-        <span className='no-wrap'>Add Apointment </span>
-        <span><Link href={`/dashboard/${id}/create`}>
-                <PlusIcon className="w-5" />
-            </Link>
-        </span>
-            
+        Add Apointment
+        <Link href={`/dashboard/${id}/create`}>
+            <PlusIcon className="w-5" />
+        </Link>
       </div>
     );
   }

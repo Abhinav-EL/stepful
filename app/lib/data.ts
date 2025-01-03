@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 
 export async function fetchUsers() {
   try {
-    const data = await sql<User>`SELECT * FROM users`;
+    const data = await sql<User>`SELECT * FROM users ORDER BY type`;
 
     return data.rows;
   } catch (error) {
@@ -104,6 +104,7 @@ export async function bookAppointment(appointment_id: string, student_id: string
   "use server";
   await sql`UPDATE appointments SET student_id = ${student_id} WHERE id = ${appointment_id}`;
   revalidatePath('/dashboard');
+  redirect('/dashboard');
 }
 
 export async function editAppointment(appointment_id: string, rating: string, notes: string) {

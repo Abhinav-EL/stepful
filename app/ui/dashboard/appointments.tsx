@@ -9,8 +9,7 @@ export default async function Appointments({appointments, currentUser, }: {appoi
         return appointmentTimeStamp < currentTimeStamp && appointment.student_id != null;
     }
     return (
-        <div>
-            <h1>Appointments for- {currentUser.name}</h1>
+        <div className='padding border'> 
             <AddAppointment id={currentUser.id}/>
             <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">

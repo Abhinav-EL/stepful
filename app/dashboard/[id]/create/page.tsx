@@ -4,7 +4,7 @@ import Breadcrumbs from '@/app/ui/appointments/breadcrumbs';
 export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const id = params.id;
-    console.log("Current User Id With Create: ",  id);
+    
   return (
     <main>
       <Breadcrumbs

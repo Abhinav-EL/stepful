@@ -3,14 +3,11 @@ import { Button } from '@/app/ui/button';
 import { createAppointment } from '@/app/lib/actions';
 
 export default function Form({ id, }: {id: string }) {
-  console.log("Current User Id: ",  id);
   
   async function submitHandler(formData: FormData){
     "use server";
     formData.append('coach_id', id)  
-    console.log(formData)
     const serverResponse = await createAppointment(formData)
-    console.log(serverResponse)
   }
 
   return (

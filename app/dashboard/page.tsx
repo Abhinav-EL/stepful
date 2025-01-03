@@ -6,7 +6,7 @@ import StudentAppointments from '../ui/dashboard/studentappointments';
  
 export default async function Page() {
     const users = await fetchUsers();
-    // Change User Here -- 0 is for Coach Mark, 1 is for Student Steven
+    // Change User Here -- 0, 1 is for a Coach OR 2, 3 is for a Student
     const curentUser = users[1];
     if (!curentUser) {
         return <p>No user found</p>;
@@ -21,17 +21,16 @@ export default async function Page() {
     } else {
         totalAppointments = await fetchHydratedAppointmentsForCoach(curentUser);
     }
-    console.log(totalAppointments);
 
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Appointments
+        Appointments for {curentUser.name} 
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         { <Card title="Total" value={totalAppointments.length} type="total" /> }
         { <Card title="Upcoming" value={upcomingAppointments.length} type="upcoming" /> }
-        { <Card title="Completed" value={totalAppointments.length - upcomingAppointments.length} type="completed" />}
+        { <Card title={isUserStudent ? "Open" : "Completed"} value={totalAppointments.length - upcomingAppointments.length} type="completed" />}
       </div>
       <div>
         {isUserStudent

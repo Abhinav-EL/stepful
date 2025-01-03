@@ -4,8 +4,8 @@ import { BookAppointment } from '../appointments/updateappointments';
 export default async function StudentAppointments({appointments, currentUser, }: {appointments: AppointmentWithUser[]; currentUser: User; })
 {
     return (
-        <div>
-            <h1>Appointments for- {currentUser.name}</h1>
+        <div className='padding border'>
+            <h1>Student View</h1>
             <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
@@ -22,7 +22,7 @@ export default async function StudentAppointments({appointments, currentUser, }:
                   Apointment Time
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Click To Book
+                  Book Appointment
                 </th>
               </tr>
             </thead>
@@ -48,8 +48,9 @@ export default async function StudentAppointments({appointments, currentUser, }:
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {
-                        appointment.student_id === null &&  
+                        appointment.student_id === null ?
                         <BookAppointment appointment_id={appointment.id} student_id = {currentUser.id}/>
+                        : 'Booked'
                     }
                   </td>
                 </tr>

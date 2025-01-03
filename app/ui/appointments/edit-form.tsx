@@ -3,13 +3,10 @@ import { Button } from '@/app/ui/button';
 import { editAppointment } from '@/app/lib/data';
 
 export default function Form({ id, }: {id: string }) {
-  console.log("Appointment Id to Edit: ",  id);
   
   async function submitHandler(formData: FormData){
     "use server";
-    console.log(formData)
     const serverResponse = await editAppointment(id, formData.get('rating') as string, formData.get('notes') as string)
-    console.log(serverResponse)
   }
 
   return (
