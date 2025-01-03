@@ -7,7 +7,7 @@ import StudentAppointments from '../ui/dashboard/studentappointments';
 export default async function Page() {
     const users = await fetchUsers();
     // Change User Here -- 0, 1 is for a Coach OR 2, 3 is for a Student
-    const curentUser = users[1];
+    const curentUser = users[3];
     if (!curentUser) {
         return <p>No user found</p>;
     }

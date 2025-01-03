@@ -19,4 +19,5 @@ export type Appointment = {
   rating: number;
 };
 
-export type AppointmentWithUser = Appointment & { user: User };
+export type AppointmentWithUser = Appointment & 
+  { name: string; email: string; phone: string; };
